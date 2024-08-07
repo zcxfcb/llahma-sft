@@ -142,40 +142,10 @@ text_streamer = TextStreamer(tokenizer)
 _ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 1000)
 
 # 6. Saving
-model.save_pretrained("lora_model") # Local saving
-tokenizer.save_pretrained("lora_model")
-model.push_to_hub(huggingface_model_name, token = os.getenv("HF_TOKEN")) 
-tokenizer.push_to_hub(huggingface_model_name, token = os.getenv("HF_TOKEN"))
+# model.save_pretrained("lora_model") # Local saving
+# tokenizer.save_pretrained("lora_model")
+# model.push_to_hub(huggingface_model_name, token = os.getenv("HF_TOKEN")) 
+# tokenizer.push_to_hub(huggingface_model_name, token = os.getenv("HF_TOKEN"))
 
-# Merge to 16bit
-if True: model.save_pretrained_merged("model", tokenizer, save_method = "merged_16bit",)
-if True: model.push_to_hub_merged(huggingface_model_name, tokenizer, save_method = "merged_16bit", token = os.getenv("HF_TOKEN"))
-
-# # Merge to 4bit
-# if True: model.save_pretrained_merged("model", tokenizer, save_method = "merged_4bit",)
-# if True: model.push_to_hub_merged(huggingface_model_name, tokenizer, save_method = "merged_4bit", token = os.getenv("HF_TOKEN"))
-
-# # Just LoRA adapters
-# if True: model.save_pretrained_merged("model", tokenizer, save_method = "lora",)
-# if True: model.push_to_hub_merged(huggingface_model_name, tokenizer, save_method = "lora", token = os.getenv("HF_TOKEN"))
-
-# # Save to 8bit Q8_0
-# if True: model.save_pretrained_gguf("model", tokenizer,)
-# if True: model.push_to_hub_gguf(huggingface_model_name, tokenizer, token = os.getenv("HF_TOKEN"))
-
-# # Save to 16bit GGUF
-# if True: model.save_pretrained_gguf("model", tokenizer, quantization_method = "f16")
-# if True: model.push_to_hub_gguf(huggingface_model_name, tokenizer, quantization_method = "f16", token = os.getenv("HF_TOKEN"))
-
-# # Save to q4_k_m GGUF
-# if True: model.save_pretrained_gguf("model", tokenizer, quantization_method = "q4_k_m")
-# if True: model.push_to_hub_gguf(huggingface_model_name, tokenizer, quantization_method = "q4_k_m", token = os.getenv("HF_TOKEN"))
-
-# # Save to multiple GGUF options - much faster if you want multiple!
-# if True:
-#     model.push_to_hub_gguf(
-#         huggingface_model_name, # Change hf to your username!
-#         tokenizer,
-#         quantization_method = ["q4_k_m", "q8_0", "q5_k_m",],
-#         token = os.getenv("HF_TOKEN")
-#     )
+# Merge to 16bit and save.
+model.save_pretrained_merged("model", tokenizer, save_method = "merged_16bit",)
